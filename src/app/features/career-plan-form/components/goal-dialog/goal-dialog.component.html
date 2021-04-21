@@ -1,0 +1,58 @@
+<h1 mat-dialog-title>Enter goal</h1>
+<form [formGroup]="form" novalidate="" (ngSubmit)="onSubmit(form.value)">
+    <div mat-dialog-content>
+
+        <mat-form-field>
+            <mat-label>Goal</mat-label>
+            <input matInput formControlName="title">
+        </mat-form-field>
+        <button mat-button color="primary" type="button" (click)="addTask()">add task</button>
+        <div formArrayName="tasks">
+            <div class="task-container" *ngFor="let task of tasks.controls; let taskIndex=index" [formGroupName]="taskIndex">
+                <mat-form-field>
+                    <mat-label>Description</mat-label>
+                    <input matInput formControlName="description" (keydown.enter)="onTaskEnter($event)">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Effort</mat-label>
+                    <mat-select formControlName="effort">
+                        <mat-option *ngFor="let effort of [1, 2, 3, 5, 7]" [value]="effort">
+                            {{effort}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Recurring</mat-label>
+                    <mat-select formControlName="recurringType">
+                        <mat-option *ngFor="let reccuringType of ['never', 'weekly', 'monthy']" [value]="reccuringType">
+                            {{reccuringType}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="onCancelClick()">Cancel</button>
+        <button mat-button cdkFocusInitial type="submit">Create goal</button>
+    </div>
+</form>
+
+
+
+<!-- <div [formGroup]="tasksForm" >
+    <div formArrayName="tasks">
+      <div *ngFor="let item of tasks.controls; let taskIndex=index, let first=first"
+      [formGroupName]="taskIndex">
+      <div class="form-group">
+        <label> Limba </label>
+        <input class="form-control" formControlName="task" type="text">
+      </div>
+      <button type="button" *ngIf="!first" mat-stroked-button color="warn"
+        (click)="deleteTask(taskIndex)"> -
+        delete taks</button>
+    </div>
+  </div>
+  <button type="button" mat-stroked-button color="primary" (click)="addTask()"> + ADD TASK</button>
+</div> -->

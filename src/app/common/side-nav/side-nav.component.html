@@ -1,0 +1,46 @@
+<mat-sidenav-container class="container" autosize>
+    <mat-sidenav #sidenav class="sidenav" mode="side" opened="true">
+
+        <mat-nav-list>
+            <mat-list-item (click)="isExpanded = !isExpanded">
+                <mat-icon *ngIf="!isExpanded">chevron_right</mat-icon>
+                <mat-icon *ngIf="isExpanded">chevron_left</mat-icon>
+            </mat-list-item>
+            <mat-list-item class="dashboard">
+                <a class="menu-item" routerLink="/dashboard">
+                    <mat-icon mat-list-icon>dashboard</mat-icon>
+                    <span matLine *ngIf="isExpanded">Dashboard</span>
+                </a>
+            </mat-list-item>
+            <mat-list-item class="form">
+                <a class="menu-item" routerLink="/career-plan-form">
+                    <mat-icon mat-list-icon>description</mat-icon>
+                    <span matLine *ngIf="isExpanded">Career Plan</span>
+                </a>
+            </mat-list-item>
+            <mat-list-item class="logout">
+                <a class="menu-item">
+                    <mat-icon class="logout-reverse" mat-list-icon>login</mat-icon>
+                    <span matLine *ngIf="isExpanded">Logout</span>
+                </a>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+
+
+
+    <mat-sidenav-content>
+        <router-outlet>
+                <app-user-menu></app-user-menu>
+        </router-outlet>
+
+    </mat-sidenav-content>
+
+
+</mat-sidenav-container>
+
+
+
+<!-- Copyright 2017 Google Inc. All Rights Reserved.
+      Use of this source code is governed by an MIT-style license that
+      can be found in the LICENSE file at http://angular.io/license -->

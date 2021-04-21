@@ -1,0 +1,10 @@
+@import "../../../variables.scss";
+
+.career-plan-form {
+    background-color: $backgroung-primary;
+    margin: 8px;
+    height: calc(100% - 60px);
+    border-radius: 8px;
+    padding: 16px;
+    color: $gray-primary;
+}

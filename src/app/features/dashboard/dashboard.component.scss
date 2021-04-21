@@ -1,0 +1,72 @@
+@import "../../../variables.scss";
+
+.dashboard {
+    background-color: $backgroung-secondary;
+    margin: 8px;
+    height: calc(100% - 60px);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+
+    .goals-container {
+        display: flex;
+        flex-direction: column;
+
+        .goal {
+            padding-bottom: 16px;
+
+            .tasks-list {
+                padding-left: 16px;
+            }
+        }
+    }
+
+    .tiles {
+        height: calc(100% - 16px);
+        padding: 16px 16px 16px 16px;
+        display: flex;
+        flex-direction: row;
+
+        .flex-grid-tiles {
+            height: 100%;
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+
+            & > * {
+                overflow: hidden;
+                display: flex;
+                width: 100%;
+                height: 100%;
+                background-color: $backgroung-primary;
+            }
+
+            &.left-block {
+                margin-right: 16px;
+
+                & > * {
+                    border-radius: 8px;
+                }
+
+                .high-priority-container {
+                    margin-bottom: 16px;
+                }
+            }
+
+            &.right-block {
+                :first-child {
+                    border-radius: 8px 8px 0 0;
+                }
+
+                :last-child {
+                    border-radius: 0 0 8px 8px;
+                }
+            }
+
+            // :not(:last-child) {
+            //     margin-right: 16px;
+            // }
+        }
+    }
+}

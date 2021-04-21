@@ -1,0 +1,113 @@
+<html>
+
+<head>
+    <title>JSON Server</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <main>
+        <h1>JSON Server - How To</h1>
+        <p>Congrats! You're successfully running JSON Server.</p>
+
+        <h2>API Versioning</h2>
+        <p>Every endpoint starts with an api prefix and a version:</p>
+        <code>/api/v1/employees</code>
+        <p>This prefix is defined in the <i>/mock-server/routes.json</i> file. This file contains rewrites for the API
+            routes.</p>
+
+        <h2>Create an endpoint</h2>
+        <h3>Simple endpoint</h3>
+        <div class="subtitle">example: /api/v1/employees</div>
+        <div class="subtitle">example: /api/v1/employees/1</div>
+        <p>In this example we are going to create an endpoint for <i>/api/v1/employees</i>:</p>
+        <ol>
+            <li>Add a folder with the name <i>employees</i></li>
+            <li>Add an <i>index.js</i> file to the folder</li>
+            <li>Add the data to index.js and export it:
+                <pre><code>
+module.exports = [{
+    id: 1,
+    name: 'John Doe'
+}]
+                </code></pre>
+            </li>
+            <li>Start the mock server:
+                <code>npm run start:mock-server</code>
+            </li>
+            <li>Visit <i>http://localhost:3000/api/v1/employees</i></li>
+        </ol>
+        <p><strong>note:</strong><br />
+            If you add objects with an <i>id</i> property, the endpoint can also be queried on an id
+            <i>http://localhost:3000/api/v1/employees/1</i>. It will then return:
+        <pre><code>
+{
+    id: 1,
+    name: 'John Doe'
+}
+            </code></pre>
+        </p>
+
+
+        <h3>Simple endpoint nested</h3>
+        <div class="subtitle">example: /api/v1/students/alumni</div>
+        <p>In this example we are going to create an endpoint for <i>/api/v1/students/alumni</i>:</p>
+        <ol>
+            <li>Add a folder with the name <i>students</i></li>
+            <li>Add an <i>alumni.js</i> file to the folder</li>
+            <li>Add the data to alumni.js and export it:
+                <pre><code>
+module.exports = [{
+    id: 1,
+    name: 'jane Doe',
+    graduation: '2010'
+}]
+                </code></pre>
+            </li>
+            <li>Because getting id's is the default behavior for nested paths, we need to add an exception mapping rule
+                to the <i>routes.json</i>:
+                <code>
+                    "/api/v1/students/alumni": "/students-alumni",
+                </code>
+            </li>
+            <li>Start the mock server:
+                <code>npm run start:mock-server</code>
+            </li>
+            <li>Visit <i>http://localhost:3000/api/v1/students/alumni</i></li>
+        </ol>
+        <p><strong>note:</strong><br />
+            The exception mapping rule follows the project folder structure:
+            <code>
+                (/mock-server)/students/alumni.js > /students-alumni
+            </code>
+        </p>
+
+
+        <h3>Complex endpoints</h3>
+        <div class="subtitle">example: /api/v1/students/:id/graduation</div>
+        <p>No solution for more complex endpoints has been added yet.</p>
+
+        <h2>CRUD</h2>
+        <p>
+            To access and modify resources, you can use any HTTP method:
+        </p>
+        <p>
+            <code>GET</code>
+            <code>POST</code>
+            <code>PUT</code>
+            <code>PATCH</code>
+            <code>DELETE</code>
+            <code>OPTIONS</code>
+        </p>
+
+        <h2>Extended Documentation</h2>
+        <ul>
+            <li><a href="https://github.com/typicode/json-server">JSON Server README</a></li>
+            <li><a href="https://billyyyyy3320.com/en/2019/07/21/create-json-server-with-multiple-files/">JSON Server -
+                    modification README</a></li>
+        </ul>
+        </div>
+    </main>
+</body>
+
+</html>

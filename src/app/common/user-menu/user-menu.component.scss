@@ -1,0 +1,12 @@
+@import "../../../variables.scss";
+
+:host {
+    display: flex;
+    justify-content: flex-end;
+
+    .name-container {
+        padding: 16px;
+        background-color: $secondary; 
+        border-radius: 16px 0 16px 0;   
+    }
+}

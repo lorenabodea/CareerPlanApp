@@ -1,0 +1,1 @@
+export { SideNavModule } from './side-nav.module';

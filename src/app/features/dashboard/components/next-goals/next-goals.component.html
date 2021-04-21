@@ -1,0 +1,23 @@
+<div class="high-priority-container">
+    <div class="goal" *ngFor="let goal of goalsHistory$ | async">
+        <section class="example-section">
+            <span class="example-list-section">
+                <mat-checkbox 
+                    class="example-margin" 
+                    (change)="setAll($event.checked)" 
+                    [checked]="allComplete">
+                    {{goal.title}}
+                </mat-checkbox>
+            </span>
+            <div class="tasks-list">
+                <div>
+                    <div *ngFor="let subtask of goal.tasks">
+                        <mat-checkbox [(ngModel)]="subtask.completed">
+                            {{subtask.description}}
+                        </mat-checkbox>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
