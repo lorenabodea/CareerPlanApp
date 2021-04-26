@@ -15,5 +15,7 @@ namespace API.Data
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Goal> Goals { get; set; }
         public DbSet<CareerPlan> CareerPlans { get; set; }
+        public DbSet<Comment> Comment { get; set; }
+        public DbSet<ReplyComment> ReplyComment { get; set; }
     }
 }

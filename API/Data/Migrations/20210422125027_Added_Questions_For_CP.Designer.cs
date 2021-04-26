@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210422125027_Added_Questions_For_CP")]
+    partial class Added_Questions_For_CP
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,34 +43,6 @@ namespace API.Data.Migrations
                     b.ToTable("CareerPlans");
                 });
 
-            modelBuilder.Entity("API.Entities.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CommentText")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("CommenterId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CurrentDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("GoalId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("Resolved")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GoalId");
-
-                    b.ToTable("Comment");
-                });
-
             modelBuilder.Entity("API.Entities.Goal", b =>
                 {
                     b.Property<int>("Id")
@@ -88,29 +62,23 @@ namespace API.Data.Migrations
                     b.ToTable("Goals");
                 });
 
-            modelBuilder.Entity("API.Entities.ReplyComment", b =>
+            modelBuilder.Entity("API.Entities.QuestionsAnswers", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CommentId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CommentText")
+                    b.Property<string>("AnswerText")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("CommenterId")
+                    b.Property<int>("CareerPlanId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("CurrentDate")
-                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CommentId");
+                    b.HasIndex("CareerPlanId");
 
-                    b.ToTable("ReplyComment");
+                    b.ToTable("QuestionsAnswers");
                 });
 
             modelBuilder.Entity("API.Entities.Task", b =>
@@ -144,15 +112,6 @@ namespace API.Data.Migrations
                     b.ToTable("Tasks");
                 });
 
-            modelBuilder.Entity("API.Entities.Comment", b =>
-                {
-                    b.HasOne("API.Entities.Goal", null)
-                        .WithMany("Comments")
-                        .HasForeignKey("GoalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("API.Entities.Goal", b =>
                 {
                     b.HasOne("API.Entities.CareerPlan", null)
@@ -160,11 +119,11 @@ namespace API.Data.Migrations
                         .HasForeignKey("CareerPlanId");
                 });
 
-            modelBuilder.Entity("API.Entities.ReplyComment", b =>
+            modelBuilder.Entity("API.Entities.QuestionsAnswers", b =>
                 {
-                    b.HasOne("API.Entities.Comment", null)
-                        .WithMany("ReplyComments")
-                        .HasForeignKey("CommentId")
+                    b.HasOne("API.Entities.CareerPlan", null)
+                        .WithMany("CareerPlanFreeQuestions")
+                        .HasForeignKey("CareerPlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -180,18 +139,13 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entities.CareerPlan", b =>
                 {
-                    b.Navigation("Goals");
-                });
+                    b.Navigation("CareerPlanFreeQuestions");
 
-            modelBuilder.Entity("API.Entities.Comment", b =>
-                {
-                    b.Navigation("ReplyComments");
+                    b.Navigation("Goals");
                 });
 
             modelBuilder.Entity("API.Entities.Goal", b =>
                 {
-                    b.Navigation("Comments");
-
                     b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618

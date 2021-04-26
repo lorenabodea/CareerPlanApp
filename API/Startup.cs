@@ -1,6 +1,8 @@
 using System.Security.Claims;
+using API.Auth;
 using API.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -43,12 +45,28 @@ namespace API
             }).AddJwtBearer(options =>
             {
                 options.Authority = domain;
-                options.Audience = _config["Auth0:Audience"];
+                // options.Audience = _config["Auth0:Audience"];
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     NameClaimType = ClaimTypes.NameIdentifier
                 };
             });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("read:goal", policy => policy.Requirements.Add(new HasScopeRequirement("read:goal", $"https://{_config["Auth0:Domain"]}/")));
+                options.AddPolicy("write:goal", policy => policy.Requirements.Add(new HasScopeRequirement("write:goal", $"https://{_config["Auth0:Domain"]}/")));
+
+            });
+
+            services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
+
+             services.AddControllers() 
+                 .AddNewtonsoftJson(options =>
+                 {
+                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                 });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

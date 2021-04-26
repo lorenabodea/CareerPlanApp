@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210423125848_Updated_Commenterid_spelling")]
+    partial class Updated_Commenterid_spelling
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,7 +58,7 @@ namespace API.Data.Migrations
                     b.Property<string>("CurrentDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("GoalId")
+                    b.Property<int?>("GoalId")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("Resolved")
@@ -100,7 +102,7 @@ namespace API.Data.Migrations
                     b.Property<string>("CommentText")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("CommenterId")
+                    b.Property<int>("Commenter")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("CurrentDate")
@@ -148,9 +150,7 @@ namespace API.Data.Migrations
                 {
                     b.HasOne("API.Entities.Goal", null)
                         .WithMany("Comments")
-                        .HasForeignKey("GoalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GoalId");
                 });
 
             modelBuilder.Entity("API.Entities.Goal", b =>
