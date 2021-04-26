@@ -10,13 +10,19 @@ import { RouterModule } from '@angular/router';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-//import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { appReducer } from './state/app.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-
+import { InterceptorService } from './auth/interceptor.service';
+import { LoginModule } from './features/login';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { DashboardModule } from './features/dashboard';
+import { CommentModule } from './common/comment/comment.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -36,21 +42,27 @@ import { EffectsModule } from '@ngrx/effects';
     EffectsModule.forRoot(),
 
     CareerPlanFormModule,
+    DashboardModule,
     SideNavModule,
+    LoginModule,
     MatFormFieldModule,
     MatInputModule,
-    // ReactiveFormsModule,
-    // FormsModule,
     HttpClientModule,
+    MatIconModule,
+    MatInputModule,
+    MatCheckboxModule,
+    FormsModule,
+    CommentModule,
+    NgbModule
 
   ],
-  // providers: [
-  //   {
-  //     provide: HTTP_INTERCEPTORS,
-  //     useClass: InterceptorService,
-  //     multi: true
-  //   }
-  // ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -15,6 +15,21 @@ export function mapGoalDtoToGoals(goalDto: GoalDto): Goal {
             done: t.done,
             recurringType: t.recurringType === 'week' ? RecurringType.weekly : RecurringType.monthly,
             duedate: t.duedate
-        }))
+        })),
+        comments: goalDto.comments ? goalDto.comments.map(c => ({
+            id: c.id,
+            goalId: c.goalId,
+            commentText: c.commentText,
+            currentDate: c.currentDate,
+            resolved: c.resolved,
+            commenterId: c.commenterId,
+            replyComments: c.replyComments ? c.replyComments.map(r => ({
+                id: r.id,
+                commentText: r.commentText,
+                currentDate: r.currentDate,
+                commenterId: r.commenterId,
+                commentId: r.commentId
+            })) : []
+        })) : []
     }
 }

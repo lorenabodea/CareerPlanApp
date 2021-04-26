@@ -1,8 +1,9 @@
-export interface   Goal {
+export interface Goal {
     id: number,
     title: string,
     tasks: Task[],
-    done: boolean
+    done: boolean,
+    comments: Comment[]
 }
 
 export interface Task {
@@ -16,5 +17,24 @@ export interface Task {
 }
 
 export enum RECURRING_TYPE {
-    WEEKLY="weekly", MONTHLY="monthly"
+    WEEKLY = "weekly", MONTHLY = "monthly"
 }
+
+export interface Comment {
+    id: number,
+    goalId: number,
+    commentText: string,
+    currentDate: string,
+    resolved: boolean,
+    commenterId: number,
+    replyComments: ReplyComment[]
+}
+
+export interface ReplyComment {
+    id: number,
+    commentText: string,
+    currentDate: string,
+    commenterId: number,
+    commentId: number
+}
+

@@ -8,6 +8,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { CurrentFormComponent } from './current-form.component';
 import { GoalDialogModule } from '../goal-dialog';
+import { FormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [CurrentFormComponent],
@@ -18,6 +21,9 @@ import { GoalDialogModule } from '../goal-dialog';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
+    MatCheckboxModule,
+    FormsModule,
+    MatExpansionModule,
 
     GoalDialogModule
   ],

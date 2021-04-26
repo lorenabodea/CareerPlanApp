@@ -20,7 +20,6 @@ export class HighPriorityGoalsComponent implements OnInit {
   constructor(
     private readonly store: Store,
   ) {
-    this.goalsHighPiority$ = this.store.select(DashboardSelectors.getGoalsOverdue);
   }
 
   ngOnInit(): void {

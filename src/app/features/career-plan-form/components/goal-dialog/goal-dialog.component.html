@@ -1,14 +1,18 @@
-<h1 mat-dialog-title>Enter goal</h1>
+<h1 mat-dialog-title>Create goal</h1>
 <form [formGroup]="form" novalidate="" (ngSubmit)="onSubmit(form.value)">
-    <div mat-dialog-content>
+    <div class="dialog-content" mat-dialog-content>
 
         <mat-form-field>
-            <mat-label>Goal</mat-label>
+            <mat-label>Goal title</mat-label>
             <input matInput formControlName="title">
         </mat-form-field>
-        <button mat-button color="primary" type="button" (click)="addTask()">add task</button>
+        <div class="tasks-header">
+            <div>Add some steps to make your goal achievable</div>
+            <button mat-button color="primary" type="button" (click)="addTask()">ADD TASK</button>
+        </div>
         <div formArrayName="tasks">
-            <div class="task-container" *ngFor="let task of tasks.controls; let taskIndex=index" [formGroupName]="taskIndex">
+            <div class="task-container" *ngFor="let task of tasks.controls; let taskIndex=index"
+                [formGroupName]="taskIndex">
                 <mat-form-field>
                     <mat-label>Description</mat-label>
                     <input matInput formControlName="description" (keydown.enter)="onTaskEnter($event)">
@@ -29,30 +33,20 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Due date</mat-label>
+                    <input matInput formControlName="duedate" [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="removeTask(taskIndex)">
+                    delete_outline</mat-icon>
             </div>
         </div>
 
     </div>
-    <div mat-dialog-actions>
+    <div class="dialog-footer" mat-dialog-actions>
         <button mat-button (click)="onCancelClick()">Cancel</button>
         <button mat-button cdkFocusInitial type="submit">Create goal</button>
     </div>
 </form>
-
-
-
-<!-- <div [formGroup]="tasksForm" >
-    <div formArrayName="tasks">
-      <div *ngFor="let item of tasks.controls; let taskIndex=index, let first=first"
-      [formGroupName]="taskIndex">
-      <div class="form-group">
-        <label> Limba </label>
-        <input class="form-control" formControlName="task" type="text">
-      </div>
-      <button type="button" *ngIf="!first" mat-stroked-button color="warn"
-        (click)="deleteTask(taskIndex)"> -
-        delete taks</button>
-    </div>
-  </div>
-  <button type="button" mat-stroked-button color="primary" (click)="addTask()"> + ADD TASK</button>
-</div> -->

@@ -12,20 +12,37 @@ import { NextGoalsComponent } from './components/next-goals/next-goals.component
 import { HighPriorityGoalsComponent } from './components/high-priority-goals/high-priority-goals.component';
 import { ProgressTrackingComponent } from './components/progress-tracking/progress-tracking.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HistoryComponent } from './components/history/history.component'
+import { CommentModule } from 'src/app/common/comment/comment.module';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MdePopoverModule } from '@material-extended/mde';
+import { MatCardModule } from '@angular/material/card';
+import { CommentDialogComponent, DatacontainerDirective } from './components/comment-doalog/comment-doalog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [DashboardComponent, NextGoalsComponent, HighPriorityGoalsComponent, ProgressTrackingComponent, HistoryComponent],
+  declarations: [DashboardComponent, NextGoalsComponent, HighPriorityGoalsComponent, ProgressTrackingComponent, HistoryComponent, CommentDialogComponent, DatacontainerDirective],
   imports: [
     CommonModule,
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
     FormsModule,
+    CommentModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule,
+    MdePopoverModule,
+    MatCardModule,
+    MatDialogModule,
+    ReactiveFormsModule,
 
     StoreModule.forFeature(featureKey, DashboardReducers),
     EffectsModule.forFeature([DashboardEffects]),
   ]
 })
-export class DashboardModule { }
+export class
+  DashboardModule { }

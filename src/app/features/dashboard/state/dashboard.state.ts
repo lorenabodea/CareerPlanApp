@@ -5,11 +5,6 @@ export interface AppUser {
     userName: string;
 }
 
-
-export interface Filter {
-    text: string;
-}
-
 export interface DashboardState {
     goals: {
         list: Goal[];
@@ -19,28 +14,23 @@ export interface DashboardState {
         thisMonth: Goal[];
         history: Goal[];
     },
-    counter: number;
+    currentGoalComment: Goal,
     selected: string[];
-    filter: Filter;
     users: AppUser[];
     error: Error
 }
 
 export const initialDashboardState: DashboardState = {
-    
-   goals: {
-       list: [],
-       overdue: [],
-       weekly: [],
-       next: [],
-       thisMonth: [],
-       history: []
-   },
-    
-    counter: 0,
-    filter: {
-        text: ''
+
+    goals: {
+        list: [],
+        overdue: [],
+        weekly: [],
+        next: [],
+        thisMonth: [],
+        history: []
     },
+    currentGoalComment: null,
     selected: [],
     users: [{
         id: -1,

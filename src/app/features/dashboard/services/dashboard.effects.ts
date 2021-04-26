@@ -22,8 +22,6 @@ export class DashboardEffects {
         ofType(DashboardActions.getGoals),
         mergeMap((_action) => this.goalService.getGoals().pipe(
             map((goals: Goal[]) => {
-                console.log('here')
-                console.log(goals);
                 return DashboardActions.getGoalsSuccess({ goals })
             }
             ),
@@ -45,6 +43,52 @@ export class DashboardEffects {
             })
         ))
     ))
+
+    public createGoal$ = createEffect(() => this.actions$.pipe(
+        ofType(DashboardActions.createGoal),
+        concatMap((_action) => this.goalService.createGoal(_action.goal).pipe(
+            map(goal => DashboardActions.createGoalSuccess({ goal })),
+            catchError((error: Error) => {
+                console.log(error)
+                return errorHandlerPipe(error.message);
+            })
+        ))
+    ))
+
+    public createComment$ = createEffect(() => this.actions$.pipe(
+        ofType(DashboardActions.createComment),
+        concatMap((_action) => this.goalService.createComment(_action.comment).pipe(
+            map(goal => DashboardActions.createCommentSuccess({ goal })),
+            catchError((error: Error) => {
+                console.log(error)
+                return errorHandlerPipe(error.message);
+            })
+        ))
+    ))
+
+    public createReplyComment$ = createEffect(() => this.actions$.pipe(
+        ofType(DashboardActions.createReplyComment),
+        concatMap((_action) => this.goalService.createReplyComment(_action.replyComment).pipe(
+            map(goal => DashboardActions.createCommentSuccess({ goal })),
+            catchError((error: Error) => {
+                console.log(error)
+                return errorHandlerPipe(error.message);
+            })
+        ))
+    ))
+
+    public deleteComment$ = createEffect(() => this.actions$.pipe(
+        ofType(DashboardActions.deleteComment),
+        concatMap((_action) => this.goalService.deleteComment(_action.commentId).pipe(
+            map(commentId => DashboardActions.deleteCommentSuccess({ commentId })),
+            catchError((error: Error) => {
+                console.log(error)
+                return errorHandlerPipe(error.message);
+            })
+        ))
+    ))
+
+
 
     // public getUsers$ = createEffect(() => this.actions$.pipe(
     //     ofType(DashboardActions.getUsers),

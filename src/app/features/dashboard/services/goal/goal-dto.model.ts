@@ -2,7 +2,8 @@ export interface GoalDto {
     id: number,
     title: string,
     tasks: TaskDto[],
-    done: boolean
+    done: boolean,
+    comments: CommentDto[]
 }
 
 export interface TaskDto {
@@ -13,4 +14,22 @@ export interface TaskDto {
     done: boolean
     recurringType: string,
     duedate: string,
+}
+
+export interface CommentDto {
+    id: number,
+    goalId,
+    commentText: string,
+    currentDate: string,
+    resolved: boolean,
+    commenterId: number,
+    replyComments: ReplyCommentDto[]
+}
+
+export interface ReplyCommentDto {
+    id: number,
+    commentText: string,
+    currentDate: string,
+    commenterId: number,
+    commentId: number
 }

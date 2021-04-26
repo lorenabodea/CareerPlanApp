@@ -5,7 +5,6 @@ import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from 'rxjs';
 import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +14,8 @@ export class AuthService {
   auth0Client$ = (from(
     createAuth0Client({
       domain: 'careerplan.eu.auth0.com',
-      client_id: 'NTnp2hfV80BYa5b5BVT6teImC1DrLyep',
+      client_id: '2KUVvc3IC6AjHPwjJTtQf9B8YhdqiLgj',
       redirect_uri: `${window.location.origin}`,
-      audience: 'http://localhost:5000/'
     })
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
@@ -40,9 +38,7 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-  constructor(
-    private router: Router, 
-  ) {
+  constructor(private router: Router) {
     // On initial load, check authentication state with authorization server
     // Set up local auth streams if user is already authenticated
     this.localAuthSetup();
@@ -128,7 +124,7 @@ export class AuthService {
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log out
       client.logout({
-        client_id: '{your-client-id}',
+        client_id: '2KUVvc3IC6AjHPwjJTtQf9B8YhdqiLgj',
         returnTo: `${window.location.origin}`
       });
     });

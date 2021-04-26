@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { GoalDialogComponent } from './goal-dialog.component';
 
@@ -24,6 +25,7 @@ import { GoalDialogComponent } from './goal-dialog.component';
     ReactiveFormsModule,
     MatButtonModule,
     MatSelectModule,
+    MatDatepickerModule,
   ],
 
 })

@@ -1,7 +1,32 @@
-mat-form-field {
-    width: 100%;
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+
+    mat-form-field {
+        width: 180px;
+        padding-right: 16px;
+    }
+
+    button {
+        width: fit-content;
+    }
+
+    .tasks-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .task-container {
+        display: flex;
+        align-items: center;
+
+        mat-icon {
+            cursor: pointer;
+        }
+    }
 }
 
-// .task-container {
-//     display: flex;
-// }
+.dialog-footer {
+    float: right;
+}

@@ -3,9 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent, DashboardModule} from './features/dashboard';
 import { CareerPlanFormComponent, CareerPlanFormModule } from './features/career-plan-form'
-import { LoginComponent } from './features/login';
-import { LoginModule } from './features/login';
-
+import { LoginComponent, LoginModule } from './features/login';
 
 const routes: Routes = [
   {

@@ -5,27 +5,13 @@ export const featureKey = 'dashboard';
 export const selectFeature = createFeatureSelector<DashboardState>(featureKey);
 
 export class DashboardSelectors {
-    public static getGoals = createSelector (
+    public static getGoals = createSelector(
         selectFeature,
         (state: DashboardState) => state.goals.list
     )
 
-    public static getGoalsOverdue = createSelector (
+    public static currentGoalComment = createSelector(
         selectFeature,
-        (state: DashboardState) => state.goals.overdue
-    )
-
-    public static getGoalsthisMonth = createSelector (
-        selectFeature,
-        (state: DashboardState) => state.goals.thisMonth
-    )
-    
-    public static counter = createSelector(
-        selectFeature,
-        (state: DashboardState) => state.counter
-    );
-    public static users = createSelector(
-        selectFeature,
-        (state: DashboardState) => state.users
+        (state: DashboardState) => state.currentGoalComment
     )
 }

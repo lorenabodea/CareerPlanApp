@@ -17,7 +17,6 @@ export class NextGoalsComponent implements OnInit {
   constructor(
     private readonly store: Store,
   ) {
-    this.goalsHistory$ = this.store.select(DashboardSelectors.getGoalsthisMonth);
 
    }
 

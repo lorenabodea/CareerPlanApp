@@ -6,6 +6,9 @@ import { Goal, Task } from 'src/app/domain/goal.model';
 import { DashboardActions } from './state/dashboard.actions';
 import { DashboardSelectors } from './state/dashboard.selector';
 import { DateTime } from 'luxon';
+import { MatDialog } from '@angular/material/dialog';
+import { CommentDialogComponent } from './components/comment-doalog/comment-doalog.component';
+import { CommentService } from './services/service/comment.service';
 
 
 @Component({
@@ -22,6 +25,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private readonly store: Store,
+    public dialog: MatDialog,
+    private readonly commentService: CommentService
   ) {
     this.store.dispatch(DashboardActions.getGoals());
 
@@ -36,18 +41,18 @@ export class DashboardComponent implements OnInit {
     );
 
     this.goalsHistory$ = this.goals$.pipe(
-      map((goals) =>  goals.filter((goal) => goal.tasks.some(task => task.done === true)))
+      map((goals) => goals.filter((goal) => goal.tasks.some(task => task.done === true)))
     );
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
   public changeTask(goalFromTemplate: Goal, task: Task): void {
     let tasks: Task[] = [];
 
     goalFromTemplate.tasks.forEach(element => {
-      if(element.id ===  task.id) {
+      if (element.id === task.id) {
         let newTask: Task = {
           id: task.id,
           description: task.description,
@@ -69,7 +74,8 @@ export class DashboardComponent implements OnInit {
       id: goalFromTemplate.id,
       title: goalFromTemplate.title,
       tasks: tasks,
-      done: newDone
+      done: newDone,
+      comments: goalFromTemplate.comments
     }
 
     this.store.dispatch(DashboardActions.updateGoal({ goal }))
@@ -79,18 +85,18 @@ export class DashboardComponent implements OnInit {
     let tasks: Task[] = [];
 
     goalFromTemplate.tasks.forEach(element => {
-      
-        let newTask: Task = {
-          id: element.id,
-          description: element.description,
-          effort: element.effort,
-          duedate: element.duedate,
-          done: !goalFromTemplate.done,
-          recurringType: element.recurringType,
-          goalId: element.goalId
-        }
-        tasks.push(newTask);
-    
+
+      let newTask: Task = {
+        id: element.id,
+        description: element.description,
+        effort: element.effort,
+        duedate: element.duedate,
+        done: !goalFromTemplate.done,
+        recurringType: element.recurringType,
+        goalId: element.goalId
+      }
+      tasks.push(newTask);
+
     });
 
     let newDone = !goalFromTemplate.done;
@@ -99,9 +105,25 @@ export class DashboardComponent implements OnInit {
       id: goalFromTemplate.id,
       title: goalFromTemplate.title,
       tasks: tasks,
-      done: newDone
+      done: newDone,
+      comments: goalFromTemplate.comments
     }
 
     this.store.dispatch(DashboardActions.updateGoal({ goal }))
+  }
+
+  public changecurrentGoalcomponent(currentGoalComment: Goal, event) {
+    this.store.dispatch(DashboardActions.currentGoalComment({ currentGoalComment }));
+
+    this.commentService.changeActiveGoal(currentGoalComment);
+    this.dialog.open(CommentDialogComponent, {
+      data: {
+        position: {
+          top: event.clientY,
+          left: event.clientX
+        }
+      },
+
+    });
   }
 }

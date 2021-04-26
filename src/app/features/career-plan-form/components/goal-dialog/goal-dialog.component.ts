@@ -1,6 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { DashboardActions } from 'src/app/features/dashboard/state/dashboard.actions';
+import { Goal } from 'src/app/domain/goal.model';
+import { Observable } from 'rxjs';
+import { DashboardSelectors } from 'src/app/features/dashboard/state/dashboard.selector';
 
 export interface DialogData {
   title: string;
@@ -19,29 +24,24 @@ export class GoalDialogComponent implements OnInit {
 
   public form: FormGroup;
 
-  checked = false;
-
   constructor(
     public dialogRef: MatDialogRef<GoalDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private readonly store: Store,
   ) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.form = this.fb.group({
-      title: [''],
+      title: ['', Validators.required],
       tasks: this.fb.array([this.fb.group({
-        description: '',
+        description: ['', Validators.required],
         recurringType: '',
         duedate: '',
-        effort: '',
+        effort: ['', Validators.required],
       })]),
     })
-  }
-
-  public onCancelClick(): void {
-    this.dialogRef.close();
   }
 
   // to do later
@@ -49,21 +49,34 @@ export class GoalDialogComponent implements OnInit {
     console.log(event);
   }
 
-  public onSubmit(formValue): void {
-    console.log(formValue);
-
-  }
-
   get tasks() {
     return this.form.get('tasks') as FormArray;
   }
 
-  addTask() {
-    this.tasks.push(this.fb.group({
-      description: '',
+  public addTask(): void {
+    if (this.tasks.valid) {
+      this.tasks.push(this.fb.group({
+        description: '',
         recurringType: '',
         duedate: '',
         effort: '',
-    }))
+      }))
+    }
+  }
+
+  public removeTask(index: number): void {
+    this.tasks.removeAt(index);
+  }
+
+  public onSubmit(goal: Goal): void {
+    if (this.form.valid) {
+      this.store.dispatch(DashboardActions.createGoal({ goal }))
+
+      this.dialogRef.close()
+    }
+  }
+
+  public onCancelClick(): void {
+    this.dialogRef.close();
   }
 }
