@@ -1,6 +1,6 @@
 import { Component, ComponentFactoryResolver, Directive, Inject, OnInit, QueryList, ViewChildren, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ChildboxComponent } from 'src/app/common/comment/childbox/childbox.component';
@@ -45,8 +45,8 @@ export class CommentDialogComponent implements OnInit {
     private readonly commentServie: CommentService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private resolver: ComponentFactoryResolver,
-    private readonly dialogRef: MatDialogRef<CommentDialogComponent>
-
+    private readonly dialogRef: MatDialogRef<CommentDialogComponent>,
+    public dialog: MatDialog
   ) {
     this.currentGoal$ = this.commentServie.activeGoalComment$.pipe();
     this.currentGoal$.subscribe((data) => {
@@ -187,4 +187,23 @@ export class CommentDialogComponent implements OnInit {
 
     this.commentServie.changeActiveGoal(newgoal);
   }
+
+  openDialog() {
+    this.dialog.open(DialogElementsExampleDialog);
+    this.commentServie.nextBackdrop(false);
+  }
+}
+
+
+@Component({
+  selector: 'dialog-elements-example-dialog',
+  template: `<h1 mat-dialog-title>Dialog with elements</h1>
+  <div mat-dialog-content>This dialog showcases the title, close, content and actions elements.</div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+  </div>`,
+})
+export class DialogElementsExampleDialog {
+
+
 }

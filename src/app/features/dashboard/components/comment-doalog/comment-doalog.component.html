@@ -1,4 +1,9 @@
 <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+
+    <button mat-flat-button color="primary" (click)="openDialog()">
+        Reply
+    </button>
+
     <div class="form-group">
         <mat-form-field class="example-full-width">
             <mat-label>Leave a comment</mat-label>

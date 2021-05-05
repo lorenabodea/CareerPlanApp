@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { ApiService } from "src/app/core/data-service";
-import { Comment, Goal, ReplyComment, Task } from "src/app/domain/goal.model";
-import { GoalDto, TaskDto } from "./goal-dto.model";
+import { Comment, Goal, ReplyComment } from "src/app/domain/goal.model";
+import { GoalDto } from "./goal-dto.model";
 import { mapGoalDtoToGoals } from "./goal-mapping";
 
 @Injectable({ providedIn: 'root' })
@@ -12,7 +12,8 @@ export class GoalService {
     private uriComments: string = "api/comments";
     private uriReplyComments: string = "api/replycomment";
 
-    constructor(private readonly apiService: ApiService) { }
+    constructor(private readonly apiService: ApiService) {
+    }
 
     public getGoals(): Observable<Goal[]> {
         return this.apiService
