@@ -18,7 +18,6 @@ namespace API.Controllers
             _context = context;
         }
 
-        // this should be get by user
          [HttpGet]
         public async Task<ActionResult<IEnumerable<CareerPlan>>> GetCareerPlans()
         {

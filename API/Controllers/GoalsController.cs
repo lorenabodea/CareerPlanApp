@@ -20,6 +20,7 @@ namespace API.Controllers
         }
 
         // this should be get by user
+       [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Goal>>> GetGoals()
         {

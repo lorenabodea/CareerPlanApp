@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -26,6 +27,7 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            IdentityModelEventSource.ShowPII = true;
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
@@ -36,36 +38,38 @@ namespace API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
             services.AddCors();
-
-            string domain = $"https://{_config["Auth0:Domain"]}/";
+ 
             services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
-            {
-                options.Authority = domain;
-                // options.Audience = _config["Auth0:Audience"];
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    NameClaimType = ClaimTypes.NameIdentifier
-                };
-            });
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(options =>
+        {
+            options.Authority = "https://careerplan.eu.auth0.com/";
+            options.Audience = "http://localhost:5000";
+        });
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("read:goal", policy => policy.Requirements.Add(new HasScopeRequirement("read:goal", $"https://{_config["Auth0:Domain"]}/")));
-                options.AddPolicy("write:goal", policy => policy.Requirements.Add(new HasScopeRequirement("write:goal", $"https://{_config["Auth0:Domain"]}/")));
+            // services.AddAuthorization(options =>
+            // {
+            //     options.AddPolicy("read:cp", policy => policy.Requirements.Add(new HasScopeRequirement("read:cp", domain)));
+            //    // options.AddPolicy("write:goal", policy => policy.Requirements.Add(new HasScopeRequirement("write:goal", $"https://{_config["Auth0:Domain"]}/")));
 
-            });
+            // });
 
-            services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
+            //services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
              services.AddControllers() 
                  .AddNewtonsoftJson(options =>
                  {
                      options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                  });
+
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+            }));
 
         }
 
@@ -84,7 +88,10 @@ namespace API
 
             app.UseRouting();
 
-            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+          //  app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+          //app.UseCors(false)
+
+            app.UseCors("MyPolicy");
 
             app.UseAuthentication();
 
