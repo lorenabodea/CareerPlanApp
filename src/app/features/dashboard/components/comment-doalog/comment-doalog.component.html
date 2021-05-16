@@ -1,9 +1,4 @@
 <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
-
-    <button mat-flat-button color="primary" (click)="openDialog()">
-        Reply
-    </button>
-
     <div class="form-group">
         <mat-form-field class="example-full-width">
             <mat-label>Leave a comment</mat-label>
@@ -20,8 +15,6 @@
         <button mat-flat-button color="primary" type="submit">Post Comment</button>
     </div>
 </form>
-
-
 
 <div class="comments" *ngIf="postComments!==undefined">
     <h6 *ngIf="postComments?.length<1">No Comments found</h6>

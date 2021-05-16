@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { AuthService } from './auth/auth.service';
+//import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ export class AppComponent {
   title = 'CareerPlanClient';
 
   constructor(
-    public auth: AuthService,
+  //  public auth: AuthService,
     private http: HttpClient
   ) { }
 

@@ -8,7 +8,7 @@ import { mapGoalDtoToGoals } from "./goal-mapping";
 
 @Injectable({ providedIn: 'root' })
 export class GoalService {
-    private uriGoals: string = "api/goals";
+    private uriGoals: string = "https://localhost:5001/api/goals";
     private uriComments: string = "api/comments";
     private uriReplyComments: string = "api/replycomment";
 

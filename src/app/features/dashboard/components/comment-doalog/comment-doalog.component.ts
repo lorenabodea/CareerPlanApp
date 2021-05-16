@@ -187,23 +187,4 @@ export class CommentDialogComponent implements OnInit {
 
     this.commentServie.changeActiveGoal(newgoal);
   }
-
-  openDialog() {
-    this.dialog.open(DialogElementsExampleDialog);
-    this.commentServie.nextBackdrop(false);
-  }
-}
-
-
-@Component({
-  selector: 'dialog-elements-example-dialog',
-  template: `<h1 mat-dialog-title>Dialog with elements</h1>
-  <div mat-dialog-content>This dialog showcases the title, close, content and actions elements.</div>
-  <div mat-dialog-actions>
-    <button mat-button mat-dialog-close>Close</button>
-  </div>`,
-})
-export class DialogElementsExampleDialog {
-
-
 }

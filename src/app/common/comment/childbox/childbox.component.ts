@@ -19,7 +19,6 @@ export class ChildboxComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    console.log('Comment no==>', this.commentNo);
   }
 
   createForm() {

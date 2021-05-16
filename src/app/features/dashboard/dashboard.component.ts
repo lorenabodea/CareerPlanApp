@@ -23,18 +23,11 @@ export class DashboardComponent implements OnInit {
   public goalsMonth$: Observable<Goal[]>;
   public goalsHistory$: Observable<Goal[]>;
 
-  public backdrop: boolean;
-
   constructor(
     private readonly store: Store,
     public dialog: MatDialog,
     private readonly commentService: CommentService
   ) {
-
-    this.commentService.hasBackdrop$.subscribe((value => {
-      this.backdrop = value;
-      console.log(this.backdrop);
-    }))
 
     this.store.dispatch(DashboardActions.getGoals());
 
@@ -131,8 +124,6 @@ export class DashboardComponent implements OnInit {
           left: event.clientX
         }
       },
-      hasBackdrop: this.backdrop
-
     });
   }
 }

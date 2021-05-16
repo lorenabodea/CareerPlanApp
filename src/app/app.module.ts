@@ -15,7 +15,6 @@ import { StoreModule } from '@ngrx/store';
 import { appReducer } from './state/app.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { InterceptorService } from './auth/interceptor.service';
 import { LoginModule } from './features/login';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
@@ -23,6 +22,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DashboardModule } from './features/dashboard';
 import { CommentModule } from './common/comment/comment.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 
 @NgModule({
   declarations: [
@@ -53,15 +53,25 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatCheckboxModule,
     FormsModule,
     CommentModule,
-    NgbModule
+    NgbModule,
+
+    AuthModule.forRoot({
+      domain: 'careerplan.eu.auth0.com',
+      clientId: '2KUVvc3IC6AjHPwjJTtQf9B8YhdqiLgj',
+      audience: 'http://localhost:5000',
+
+      httpInterceptor: {
+        allowedList: [
+          {uri: 'https://localhost:5001/api/goals'},
+          {uri: 'http://localhost:4200/api/goals'},
+          '/api/*'
+        ]
+      }
+    }),
 
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
-      multi: true
-    }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

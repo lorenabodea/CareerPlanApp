@@ -13,7 +13,8 @@ export const DashboardReducers = createReducer(
                 ...state.goals,
                 list: goals,
                 overdue: goals.filter((goal) => goal.tasks.some(task => DateTime.fromISO(task.duedate) <= DateTime.now())),
-                thisMonth: goals.filter((goal) => goal.tasks.some(task => DateTime.fromISO(task.duedate) > DateTime.now() && DateTime.fromISO(task.duedate).month === DateTime.now().month)),
+                thisMonth: goals.filter((goal) => goal.tasks.some(task => DateTime.fromISO(task.duedate) > DateTime.now() 
+                && DateTime.fromISO(task.duedate).month === DateTime.now().month)),
                 history: goals.filter((goal) => goal.tasks.some(task => DateTime.fromISO(task.done) === true)),
             },
         })
@@ -32,12 +33,6 @@ export const DashboardReducers = createReducer(
     ),
     on(
         DashboardActions.createCommentSuccess, (state: DashboardState, { goal }) => {
-            // const updatedGoals = state.goals.list.map(item => {
-            //     item.comments = item.id === comment.goalId ? [...item.comments, comment] : item.comments
-
-            //     return item;
-            // })
-
             const updatedGoals = state.goals.list.map((item => item.id === goal.id ? goal : item))
 
             return {
@@ -65,7 +60,7 @@ export const DashboardReducers = createReducer(
                     title: item.title,
                     tasks: item.tasks,
                     comments: comments,
-                    done: item.done
+                    done: item.done,
                 }
 
                 return goal;
@@ -120,13 +115,5 @@ export const DashboardReducers = createReducer(
             currentGoalComment: currentGoalComment,
         }),
     ),
-    on(
-        DashboardActions.getUsersSuccess,
-        (state: DashboardState, { appUsers }) => ({
-            ...state,
-            users: appUsers
-        })
-    ),
-
 
 )
