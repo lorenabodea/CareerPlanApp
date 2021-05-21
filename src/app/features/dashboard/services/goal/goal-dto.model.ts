@@ -4,6 +4,7 @@ export interface GoalDto {
     tasks: TaskDto[],
     done: boolean,
     comments: CommentDto[]
+    careerPlanId: number,
 }
 
 export interface TaskDto {

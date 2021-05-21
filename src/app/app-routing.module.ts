@@ -4,7 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent, DashboardModule} from './features/dashboard';
 import { CareerPlanFormComponent, CareerPlanFormModule } from './features/career-plan-form'
 import { LoginComponent, LoginModule } from './features/login';
-import { AuthGuard } from '@auth0/auth0-angular';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthGuard, AuthHttpInterceptor } from '@auth0/auth0-angular';
 
 const routes: Routes = [
   {
@@ -20,7 +21,6 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-   // canActivate: [AuthGuard]
   },
   {
     path: 'career-plan-form',
@@ -37,6 +37,6 @@ const routes: Routes = [
     DashboardModule,
     LoginModule
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

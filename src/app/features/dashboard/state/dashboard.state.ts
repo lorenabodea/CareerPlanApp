@@ -15,9 +15,6 @@ export interface DashboardState {
         history: Goal[];
     },
     currentGoalComment: Goal,
-    selected: string[];
-    users: AppUser[];
-    error: Error
 }
 
 export const initialDashboardState: DashboardState = {
@@ -31,10 +28,4 @@ export const initialDashboardState: DashboardState = {
         history: []
     },
     currentGoalComment: null,
-    selected: [],
-    users: [{
-        id: -1,
-        userName: ''
-    }],
-    error: null
 }

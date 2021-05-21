@@ -22,6 +22,7 @@ import { MdePopoverModule } from '@material-extended/mde';
 import { MatCardModule } from '@angular/material/card';
 import { CommentDialogComponent, DatacontainerDirective } from './components/comment-doalog/comment-doalog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [DashboardComponent, NextGoalsComponent, HighPriorityGoalsComponent, ProgressTrackingComponent, HistoryComponent, CommentDialogComponent, DatacontainerDirective],
@@ -39,7 +40,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatCardModule,
     MatDialogModule,
     ReactiveFormsModule,
-
+    ChartsModule,
     StoreModule.forFeature(featureKey, DashboardReducers),
     EffectsModule.forFeature([DashboardEffects]),
   ]

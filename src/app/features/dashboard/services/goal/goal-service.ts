@@ -21,7 +21,7 @@ export class GoalService {
             .pipe(map((response: GoalDto[]) => {
                 return response.map(mapGoalDtoToGoals)
             })
-            );
+        );
     }
 
     public updateGoal(goal: Goal): Observable<Goal> {
@@ -30,7 +30,7 @@ export class GoalService {
             .pipe(map((response: GoalDto) => {
                 return mapGoalDtoToGoals(response);
             })
-            );
+        );
     }
 
     public createGoal(goal: Goal): Observable<Goal> {

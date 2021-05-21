@@ -34,7 +34,7 @@ export class HighPriorityGoalsComponent implements OnInit {
     //   this.task.subtasks.forEach(t => t.completed = completed);
   }
 
-  public changeTask(completed: boolean, goal2: Goal, task: Task): void {
+  public markTaskAsDone(completed: boolean, goal2: Goal, task: Task): void {
     let taskIndex = goal2.tasks.findIndex(item => item.id === task.id);
     let taskFound = goal2.tasks[taskIndex];
     //taskFound.done = completed;

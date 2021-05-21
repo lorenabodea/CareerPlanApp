@@ -14,7 +14,7 @@
                 <div>
                     <div *ngFor="let task of goal.tasks">
                         <mat-checkbox 
-                        (change)="changeTask($event.checked, goal, task)" >
+                        (change)="markTaskAsDone($event.checked, goal, task)" >
                             {{task.description}}
                         </mat-checkbox>
                     </div>

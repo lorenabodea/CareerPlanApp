@@ -42,7 +42,7 @@ export class DashboardEffects {
                 return errorHandlerPipe(error.message);
             })
         ))
-    ))
+    ));
 
     public createGoal$ = createEffect(() => this.actions$.pipe(
         ofType(DashboardActions.createGoal),

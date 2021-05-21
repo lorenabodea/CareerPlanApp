@@ -3,18 +3,18 @@
     <div class="flex-grid-tiles left-block">
       <div class="goals-container high-priority-container">
         <div class="goal" *ngFor="let goal of goalsHighPiority$ | async">
-          <section *ngIf="!goal.done" class="example-section">
+          <section *ngIf="!goal.done" >
             <div class="goal-header">
-              <mat-checkbox class="example-margin" (change)="changeGoal(goal)" [checked]="goal.done">
+              <mat-checkbox  (change)="markGoalAsDone(goal)" [checked]="goal.done">
                 {{goal.title}}
               </mat-checkbox>
-              <mat-icon aria-hidden="false" aria-label="Comment" (click)="changecurrentGoalcomponent(goal, $event)">
+              <mat-icon aria-hidden="false" aria-label="Comment" (click)="addComment(goal, $event)">
                 chat_bubble_outlined</mat-icon>
             </div>
             <div class="tasks-list">
               <div>
                 <div *ngFor="let task of goal.tasks">
-                  <mat-checkbox [checked]="task.done" *ngIf="!task.done" (change)="changeTask(goal, task)">
+                  <mat-checkbox [checked]="task.done" *ngIf="!task.done" (change)="markTaskAsDone(goal, task)">
                     {{task.description}}
                   </mat-checkbox>
                 </div>
@@ -25,18 +25,18 @@
       </div>
       <div class="goals-container">
         <div class="goal" *ngFor="let goal of goalsMonth$ | async">
-          <section class="example-section">
+          <section >
             <div class="goal-header">
-              <mat-checkbox class="example-margin" (change)="changeGoal(goal)" [checked]="goal.done">
+              <mat-checkbox  (change)="markGoalAsDone(goal)" [checked]="goal.done">
                 {{goal.title}}
               </mat-checkbox>
-              <mat-icon aria-hidden="false" aria-label="Comment" (click)="changecurrentGoalcomponent(goal, $event)">
+              <mat-icon aria-hidden="false" aria-label="Comment" (click)="addComment(goal, $event)">
                 chat_bubble_outlined</mat-icon>
             </div>
             <div class="tasks-list">
               <div>
                 <div *ngFor="let task of goal.tasks">
-                  <mat-checkbox [checked]="task.done" (change)="changeTask(goal, task)">
+                  <mat-checkbox [checked]="task.done" (change)="markTaskAsDone(goal, task)">
                     {{task.description}}
                   </mat-checkbox>
                 </div>
@@ -47,21 +47,44 @@
       </div>
     </div>
     <div class="flex-grid-tiles right-block">
-      <div></div>
+      <div>
+        <div>
+          <div class="chart">
+            <canvas baseChart
+              [data]="pieChartData"
+              [labels]="pieChartLabels"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [plugins]="pieChartPlugins"
+              [colors]="pieChartColors"
+              [legend]="pieChartLegend">
+            </canvas>
+          </div>
+        </div>
+      </div>
+      <div >
+        <canvas baseChart
+                chartType="bar"
+                [datasets]="datasets"
+                [labels]="comparingChartLabels"
+                [options]="chart.options"
+                legend="true">
+        </canvas>
+      </div>
       <div class="goals-container">
         <div class="goal" *ngFor="let goal of goalsHistory$ | async">
-          <section *ngIf="goal.done" class="example-section">
+          <section *ngIf="goal.done">
             <div class="goal-header">
-              <mat-checkbox class="example-margin" (change)="changeGoal(goal)" [checked]="goal.done">
+              <mat-checkbox (change)="markGoalAsDone(goal)" [checked]="goal.done">
                 {{goal.title}}
               </mat-checkbox>
-              <mat-icon aria-hidden="false" aria-label="Comment" (click)="changecurrentGoalcomponent(goal, $event)">
+              <mat-icon aria-hidden="false" aria-label="Comment" (click)="addComment(goal, $event)">
                 chat_bubble_outlined</mat-icon>
             </div>
             <div class="tasks-list">
               <div>
                 <div *ngFor="let task of goal.tasks">
-                  <mat-checkbox [checked]="task.done" (change)="changeTask(goal, task)">
+                  <mat-checkbox [checked]="task.done" (change)="markTaskAsDone(goal, task)">
                     {{task.description}}
                   </mat-checkbox>
                 </div>

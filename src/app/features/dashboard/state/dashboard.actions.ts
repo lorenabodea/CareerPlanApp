@@ -1,4 +1,3 @@
-import { User } from "@auth0/auth0-spa-js";
 import { createAction, props } from "@ngrx/store";
 import { Comment, Goal, ReplyComment, Task } from "src/app/domain/goal.model";
 import { AppUser } from "./dashboard.state";
@@ -7,6 +6,7 @@ export enum DasboardActionTypes {
     // Goals
     GetGoals = '[Goals] Get goals',
     GetGoalsSuccess = '[Goals] Get goals (success)',
+    GetGoalFailure = '[Goals] Update goals failure',
 
     UpdateGoal = '[Goals] Update goals',
     UpdateGoalSuccess = '[Goals] Update goals success',
@@ -16,7 +16,7 @@ export enum DasboardActionTypes {
     CreateGoalSuccess = '[Goals] Create goals success',
     CreateGoalFailure = '[Goals] Create goals failure',
 
-    CreateComment = '[Comments] Create Comment',
+    CreateComment = '[Comment] Create Comment',
     CreateCommentSuccess = '[Comment] Create comment success',
     CreateCommentFailure = '[Comment] Create comment failure',
 
@@ -36,9 +36,6 @@ export enum DasboardActionTypes {
 
     CurrentGoalComment = '[Goal] Current goal comment',
 
-    SubmitIssue = '[Task] submit',
-    GetUsers = '[Users] get',
-    GetUsersSuccess = '[Users] get success',
     Error = '[Users] - Error',
 }
 
@@ -141,19 +138,11 @@ export class DashboardActions {
         props<{ error: string }>()
     );
 
-    public static getUsers = createAction(
-        DasboardActionTypes.GetUsers,
-    );
-
     public static currentGoalComment = createAction(
         DasboardActionTypes.CurrentGoalComment,
         props<{ currentGoalComment: Goal }>()
     );
 
-    public static getUsersSuccess = createAction(
-        DasboardActionTypes.GetUsersSuccess,
-        props<{ appUsers: AppUser[] }>()
-    );
     public static throwError = createAction(
         DasboardActionTypes.Error,
         props<{ message: string; details?: any }>()

@@ -74,7 +74,8 @@ export class CommentboxComponent implements OnInit {
             title: goal.title,
             tasks: goal.tasks,
             done: goal.done,
-            comments: [...goal.comments, comment]
+            comments: [...goal.comments, comment],
+            careerPlanId: goal.careerPlanId
           }
 
           return newgoal;

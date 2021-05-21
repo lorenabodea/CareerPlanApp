@@ -7,7 +7,8 @@ export interface Goal {
     title: string,
     tasks: Task[],
     done: boolean,
-    comments: Comment[]
+    comments: Comment[],
+    careerPlanId: number
 }
 
 export interface Task {

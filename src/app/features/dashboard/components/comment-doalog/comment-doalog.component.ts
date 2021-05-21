@@ -9,7 +9,6 @@ import { CommentService } from '../../services/service/comment.service';
 import { DashboardActions } from '../../state/dashboard.actions';
 
 @Directive({
-  // tslint:disable-next-line:directive-selector
   selector: '[datacontainer]',
 })
 export class DatacontainerDirective {
@@ -94,7 +93,8 @@ export class CommentDialogComponent implements OnInit {
         title: this.currentGoal.title,
         tasks: this.currentGoal.tasks,
         done: this.currentGoal.done,
-        comments: [...this.currentGoal.comments, comment]
+        comments: [...this.currentGoal.comments, comment],
+        careerPlanId: this.currentGoal.careerPlanId
       }
 
       this.commentServie.changeActiveGoal(newgoal);
@@ -146,7 +146,8 @@ export class CommentDialogComponent implements OnInit {
             title: this.currentGoal.title,
             tasks: this.currentGoal.tasks,
             done: this.currentGoal.done,
-            comments: comments
+            comments: comments,
+            careerPlanId: this.currentGoal.careerPlanId
           }
 
           this.commentServie.changeActiveGoal(newgoal);
@@ -182,9 +183,11 @@ export class CommentDialogComponent implements OnInit {
       title: this.currentGoal.title,
       tasks: this.currentGoal.tasks,
       done: this.currentGoal.done,
-      comments: comments
+      comments: comments,
+      careerPlanId: this.currentGoal.careerPlanId 
     }
 
     this.commentServie.changeActiveGoal(newgoal);
   }
+
 }
