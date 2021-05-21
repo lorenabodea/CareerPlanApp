@@ -94,7 +94,8 @@ export class DashboardComponent implements OnInit {
 
     this.goals$.subscribe(result => {
         let totalAccomplishedValues =  this.chartService.calculateTotalAccomplished(result)
-        this.pieChartData = [totalAccomplishedValues.sumOfPointsAccomplished, totalAccomplishedValues.sumOfpointsTotal-totalAccomplishedValues.sumOfPointsAccomplished];
+        this.pieChartData = [totalAccomplishedValues.sumOfPointsAccomplished, 
+            totalAccomplishedValues.sumOfpointsTotal-totalAccomplishedValues.sumOfPointsAccomplished];
 
         let monthlyAccomplishedValues = this.chartService.calculateMonthlyAccomplishment(result);
 
@@ -104,7 +105,7 @@ export class DashboardComponent implements OnInit {
       ];
 
       this.comparingChartLabels = this.labels.slice(0, DateTime.now().month + 1);
-   })
+   });
 
     this.goalsHighPiority$ = this.goals$.pipe(
       map((goals) => goals.filter((goal) => goal.tasks.some(task => DateTime.fromISO(task.duedate) <= DateTime.now())))

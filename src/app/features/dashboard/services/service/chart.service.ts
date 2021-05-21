@@ -23,12 +23,12 @@ export class ChartService {
 
         sumOfpointsTotal += task.effort
       })
-    })
+    });
 
     return {
       sumOfPointsAccomplished: sumOfPointsAccomplished,
       sumOfpointsTotal: sumOfpointsTotal
-    }
+    };
   }
 
   public calculateMonthlyAccomplishment(goals: Goal[]) {
@@ -59,7 +59,7 @@ export class ChartService {
     return {
       monthlyAccomplished: monthlyAccomplished,
       monthlyPlan: monthlyPlan
-    }
+    };
     
   }
 }
