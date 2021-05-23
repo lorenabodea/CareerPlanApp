@@ -13,6 +13,7 @@ export interface DashboardState {
         next: Goal[];
         thisMonth: Goal[];
         history: Goal[];
+        today: Goal[];
     },
     currentGoalComment: Goal,
 }
@@ -20,6 +21,7 @@ export interface DashboardState {
 export const initialDashboardState: DashboardState = {
 
     goals: {
+        today: [],
         list: [],
         overdue: [],
         weekly: [],

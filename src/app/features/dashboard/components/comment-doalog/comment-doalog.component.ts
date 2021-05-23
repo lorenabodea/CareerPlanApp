@@ -59,7 +59,6 @@ export class CommentDialogComponent implements OnInit {
 
     const matDialogConfig: MatDialogConfig = new MatDialogConfig();
     matDialogConfig.position = { left: `${this.data.position.left}px`, top: `${this.data.position.top - 1}px` };
-    console.log(this.data.position)
     this.dialogRef.updatePosition(matDialogConfig.position);
   }
 

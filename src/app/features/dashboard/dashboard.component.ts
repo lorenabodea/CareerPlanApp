@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { concatMap, map, pluck, tap } from 'rxjs/operators';
-import { Goal, Task } from 'src/app/domain/goal.model';
+import { Goal, RECURRING_TYPE, Task } from 'src/app/domain/goal.model';
 import { DashboardActions } from './state/dashboard.actions';
 import { DashboardSelectors } from './state/dashboard.selector';
 import { DateTime } from 'luxon';
@@ -26,6 +26,8 @@ export class DashboardComponent implements OnInit {
 
   public goalsHighPiority$: Observable<Goal[]>;
   public goalsMonth$: Observable<Goal[]>;
+  public goalstoday$: Observable<Goal[]>;
+  public goalsWeek$: Observable<Goal[]>;
   public goalsHistory$: Observable<Goal[]>;
 
   public labels = ["FirstPlaceholder", "Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Nov", "Dec", "LastPlaceholder"];
@@ -113,6 +115,11 @@ export class DashboardComponent implements OnInit {
 
     this.goalsMonth$ = this.goals$.pipe(
       map((goals) => goals.filter((goal) => goal.tasks.some(task => DateTime.fromISO(task.duedate) > DateTime.now() && DateTime.fromISO(task.duedate).month === DateTime.now().month)))
+    );
+
+    this.goalsWeek$ = this.goals$.pipe(
+      map((goals) => goals.filter((goal) => goal.tasks.some(task => DateTime.fromISO(task.duedate).weekNumber === DateTime.now().weekNumber ||
+      (DateTime.fromISO(task.duedate) > DateTime.now() && task.recurringType === RECURRING_TYPE.WEEKLY))) )
     );
 
     this.goalsHistory$ = this.goals$.pipe(

@@ -23,6 +23,7 @@ import { MatCardModule } from '@angular/material/card';
 import { CommentDialogComponent, DatacontainerDirective } from './components/comment-doalog/comment-doalog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ChartsModule } from 'ng2-charts';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [DashboardComponent, NextGoalsComponent, HighPriorityGoalsComponent, ProgressTrackingComponent, HistoryComponent, CommentDialogComponent, DatacontainerDirective],
@@ -41,6 +42,7 @@ import { ChartsModule } from 'ng2-charts';
     MatDialogModule,
     ReactiveFormsModule,
     ChartsModule,
+    MatTabsModule,
     StoreModule.forFeature(featureKey, DashboardReducers),
     EffectsModule.forFeature([DashboardEffects]),
   ]

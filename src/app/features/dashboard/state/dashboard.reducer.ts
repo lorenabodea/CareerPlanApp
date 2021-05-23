@@ -2,7 +2,8 @@ import { createReducer, on } from "@ngrx/store";
 import { DashboardActions } from "./dashboard.actions";
 import { initialDashboardState, DashboardState } from './dashboard.state';
 import { DateTime } from 'luxon';
-import { Comment, Goal } from "src/app/domain/goal.model";
+import { Comment, Goal, RECURRING_TYPE } from "src/app/domain/goal.model";
+import { RecurringType } from "../services/goal/goal.model";
 
 export const DashboardReducers = createReducer(
     initialDashboardState,
@@ -12,10 +13,15 @@ export const DashboardReducers = createReducer(
             goals: {
                 ...state.goals,
                 list: goals,
-                overdue: goals.filter((goal) => goal.tasks.some(task => DateTime.fromISO(task.duedate) <= DateTime.now())),
+                overdue: goals.filter((goal) => goal.tasks.some(task => DateTime.fromISO(task.duedate) < DateTime.now())),
                 thisMonth: goals.filter((goal) => goal.tasks.some(task => DateTime.fromISO(task.duedate) > DateTime.now() 
-                && DateTime.fromISO(task.duedate).month === DateTime.now().month)),
+                && DateTime.fromISO(task.duedate).month === DateTime.now().month 
+                || (DateTime.fromISO(task.duedate) > DateTime.now() && task.recurringType === RECURRING_TYPE.MONTHLY)
+                )),
                 history: goals.filter((goal) => goal.tasks.some(task => DateTime.fromISO(task.done) === true)),
+                today: goals.filter((goal) => goal.tasks.some(task => DateTime.fromISO(task.duedate) === DateTime.now())),
+                weekly: goals.filter((goal) => goal.tasks.some(task => DateTime.fromISO(task.duedate).week === DateTime.now().week ||
+                (DateTime.fromISO(task.duedate) > DateTime.now() && task.recurringType === RECURRING_TYPE.WEEKLY))),
             },
         })
     ),
