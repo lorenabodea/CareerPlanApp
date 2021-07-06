@@ -20,7 +20,7 @@
             </mat-list-item>
             <mat-list-item class="logout">
                 <a class="menu-item">
-                    <mat-icon class="logout-reverse" mat-list-icon>login</mat-icon>
+                    <mat-icon class="logout-reverse" mat-list-icon (click)="logout()">login</mat-icon>
                     <span matLine *ngIf="isExpanded">Logout</span>
                 </a>
             </mat-list-item>

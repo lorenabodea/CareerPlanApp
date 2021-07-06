@@ -2,7 +2,7 @@
 <!-- <button (click)="auth.logout()"*ngIf="auth.loggedIn">Log Out</button> -->
 
 
-<app-side-nav ></app-side-nav>
+<app-side-nav *ngIf="auth.isAuthenticated$"></app-side-nav>
 
 
 <!-- <button (click)="auth.login()" *ngIf="!auth.loggedIn">Log In</button>

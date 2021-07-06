@@ -93,7 +93,8 @@ export class CommentDialogComponent implements OnInit {
         tasks: this.currentGoal.tasks,
         done: this.currentGoal.done,
         comments: [...this.currentGoal.comments, comment],
-        careerPlanId: this.currentGoal.careerPlanId
+        careerPlanId: this.currentGoal.careerPlanId,
+        userId: this.currentGoal.userId
       }
 
       this.commentServie.changeActiveGoal(newgoal);
@@ -146,7 +147,8 @@ export class CommentDialogComponent implements OnInit {
             tasks: this.currentGoal.tasks,
             done: this.currentGoal.done,
             comments: comments,
-            careerPlanId: this.currentGoal.careerPlanId
+            careerPlanId: this.currentGoal.careerPlanId,
+            userId: this.currentGoal.userId
           }
 
           this.commentServie.changeActiveGoal(newgoal);
@@ -183,7 +185,8 @@ export class CommentDialogComponent implements OnInit {
       tasks: this.currentGoal.tasks,
       done: this.currentGoal.done,
       comments: comments,
-      careerPlanId: this.currentGoal.careerPlanId 
+      careerPlanId: this.currentGoal.careerPlanId,
+      userId: this.currentGoal.userId
     }
 
     this.commentServie.changeActiveGoal(newgoal);

@@ -13,4 +13,8 @@ export class AppSelectors {
         selectFeature,
         (state: AppState) => state.loading
     );
+    public static userId = createSelector(
+        selectFeature,
+        (state: AppState) => state.userId
+    );
 }

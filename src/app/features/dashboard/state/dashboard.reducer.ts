@@ -67,7 +67,8 @@ export const DashboardReducers = createReducer(
                     tasks: item.tasks,
                     comments: comments,
                     done: item.done,
-                    careerPlanId: item.careerPlanId
+                    careerPlanId: item.careerPlanId,
+                    userId: item.userId
                 }
 
                 return goal;

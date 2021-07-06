@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 //import { AuthService } from './auth/auth.service';
 
 import { AuthService } from '@auth0/auth0-angular';
+import { concatMap, pluck, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +13,13 @@ import { AuthService } from '@auth0/auth0-angular';
 export class AppComponent {
   title = 'CareerPlanClient';
 
+  metadata = {};
+
   constructor(
-  //  public auth: AuthService,
+    public auth: AuthService,
     private http: HttpClient
   ) { 
+
     //this.auth.userProfile$.subscribe(result => console.log(result));
   }
 

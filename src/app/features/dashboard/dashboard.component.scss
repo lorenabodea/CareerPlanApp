@@ -15,6 +15,41 @@
         color: $gray-primary;
         padding-bottom: 16px;
     }
+    .line-clamp {
+        width: 250px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .detection-container {
+        width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    // .wrapper {
+    //     // width: 250px;
+    //     max-width: 150px;
+    //     max-height: 150px;
+    // }
+
+    .ellipsis-height {
+        overflow-x: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow-y: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .block-with-text {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+    }
 
     .goals-section {
         padding-bottom: 16px;

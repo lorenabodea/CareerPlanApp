@@ -17,6 +17,13 @@ const AppReducers = createReducer(
             ...state,
             loading
         })
+    ),
+    on(
+        AppActions.userId,
+        (state: AppState, { userId }) => ({
+            ...state,
+            userId
+        })
     )
 );
 
