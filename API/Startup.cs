@@ -38,7 +38,7 @@ namespace API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
             services.AddCors();
- 
+
             services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -58,17 +58,17 @@ namespace API
 
             //services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
-             services.AddControllers() 
-                 .AddNewtonsoftJson(options =>
-                 {
-                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-                 });
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
 
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
-        builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader();
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
             }));
 
         }
@@ -88,8 +88,8 @@ namespace API
 
             app.UseRouting();
 
-          //  app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
-          //app.UseCors(false)
+            //  app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+            //app.UseCors(false)
 
             app.UseCors("MyPolicy");
 

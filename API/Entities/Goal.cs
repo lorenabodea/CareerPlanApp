@@ -8,5 +8,6 @@ namespace API.Entities
         public string Title { get; set; }
         public List<Task> Tasks { get; set; }
         public List<Comment> Comments { get; set; }
+        public string UserId { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
@@ -25,6 +26,26 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<Goal>>> GetGoals()
         {
             var goals = await _context.Goals.ToListAsync();
+            var tasks = await _context.Tasks.ToListAsync();
+            var comments = await _context.Comment.ToListAsync();
+            var replyComments = await _context.ReplyComment.ToListAsync();
+            foreach (var goal in goals)
+            {
+                goal.Tasks = tasks.FindAll(task => task.GoalId == goal.Id);
+                goal.Comments = comments.FindAll(comment => comment.GoalId == goal.Id);
+                foreach (var comment in goal.Comments)
+                {
+                    comment.ReplyComments = replyComments.FindAll(reply => reply.CommentId == comment.Id);
+                }
+            }
+            return await _context.Goals.ToListAsync();
+        }
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<Goal>>> GetGoals(string id)
+        {
+            var goals = await _context.Goals.ToListAsync();
+
             var tasks = await _context.Tasks.ToListAsync();
             var comments = await _context.Comment.ToListAsync();
             var replyComments = await _context.ReplyComment.ToListAsync();
