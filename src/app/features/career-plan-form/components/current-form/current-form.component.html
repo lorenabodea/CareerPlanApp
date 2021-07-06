@@ -1,5 +1,5 @@
 <div>
-    <div class="question-container">
+    <!-- <div class="question-container">
         <span class="label"> Where do you see yourself in 6 years? But 10? but 15? but 20?</span>
         <mat-form-field class="long-textarea" appearance="fill">
             <mat-label>Textarea</mat-label>
@@ -26,15 +26,18 @@
             <mat-label>Textarea</mat-label>
             <textarea matInput></textarea>
         </mat-form-field>
-    </div>
+    </div> -->
 
     <div class="goals-header">
         <span class="section-title">
             Planned goals
         </span>
-        <button mat-icon-button color="primary" aria-label="Example icon button with a delete icon"
+        <!-- <button mat-icon-button class="add-button" aria-label="Example icon button with a delete icon"
             (click)="openGoalDialog()">
             <mat-icon>add_box</mat-icon>
+        </button> -->
+        <button class="add-button" mat-mini-fab color="primary" (click)="openGoalDialog()" aria-label="Add goals">
+            <mat-icon>add</mat-icon>
         </button>
     </div>
     <div class="goal" *ngFor="let goal of goals$ | async">

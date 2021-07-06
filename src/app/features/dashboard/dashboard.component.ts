@@ -38,9 +38,10 @@ export class DashboardComponent {
   public goalstoday$: Observable<Goal[]>;
   public goalsWeek$: Observable<Goal[]>;
   public goalsHistory$: Observable<Goal[]>;
+  public goalsNext$: Observable<Goal[]>;
 
-  @ViewChild('detection') detection: ElementRef;
-  @ViewChild('lineClamp') lineClamp: ElementRef;
+  // @ViewChild('detection') detection: ElementRef;
+  // @ViewChild('lineClamp') lineClamp: ElementRef;
 
   public labels = [
     'FirstPlaceholder',
@@ -67,6 +68,8 @@ export class DashboardComponent {
       'Mar',
       'Apr',
       'May',
+      'June',
+      'July',
       'LastPlaceholder',
     ],
     options: {
@@ -86,7 +89,7 @@ export class DashboardComponent {
           {
             ticks: {
               min: 'Jan',
-              max: 'May',
+              max: 'July',
             },
           },
         ],
@@ -158,6 +161,8 @@ export class DashboardComponent {
       let monthlyAccomplishedValues =
         this.chartService.calculateMonthlyAccomplishment(result);
 
+      console.log(monthlyAccomplishedValues);
+
       this.datasets = [
         {
           data: [0, ...monthlyAccomplishedValues.monthlyPlan, 0],
@@ -191,12 +196,28 @@ export class DashboardComponent {
         goals.filter((goal) =>
           goal.tasks.some(
             (task) =>
-              DateTime.fromISO(task.duedate) > DateTime.now() &&
-              DateTime.fromISO(task.duedate).month === DateTime.now().month
+              (DateTime.fromISO(task.duedate) > DateTime.now() &&
+                DateTime.fromISO(task.duedate).month ===
+                  DateTime.now().month) ||
+              (DateTime.fromISO(task.duedate) > DateTime.now() &&
+                task.recurringType === RECURRING_TYPE.MONTHLY)
           )
         )
       )
     );
+
+    this.goalsNext$ = this.goals$.pipe(
+      map((goals) =>
+        goals.filter((goal) =>
+          goal.tasks.some(
+            (task) =>
+              DateTime.fromISO(task.duedate).month > DateTime.now().month
+          )
+        )
+      )
+    );
+
+    this.goalsNext$.subscribe((res) => console.log(res));
 
     this.goalsWeek$ = this.goals$.pipe(
       map((goals) =>
@@ -221,17 +242,17 @@ export class DashboardComponent {
 
   metadata = {};
 
-  ngAfterViewInit(): void {
-    console.log(
-      this.detection.nativeElement.offsetWidth -
-        this.detection.nativeElement.scrollWidth
-    );
+  // ngAfterViewInit(): void {
+  //   console.log(
+  //     this.detection.nativeElement.offsetWidth -
+  //       this.detection.nativeElement.scrollWidth
+  //   );
 
-    console.log(
-      this.detection.nativeElement.offsetHeight -
-        this.detection.nativeElement.scrollHeight
-    );
-  }
+  //   console.log(
+  //     this.detection.nativeElement.offsetHeight -
+  //       this.detection.nativeElement.scrollHeight
+  //   );
+  // }
 
   public over(): void {
     console.log('over');

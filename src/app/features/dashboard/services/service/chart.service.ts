@@ -2,32 +2,29 @@ import { Injectable } from '@angular/core';
 import { Goal } from 'src/app/domain/goal.model';
 import { DateTime } from 'luxon';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChartService {
-
-  constructor() { 
-  }
+  constructor() {}
 
   public calculateTotalAccomplished(goals: Goal[]) {
     let sumOfpointsTotal = 0;
     let sumOfPointsAccomplished = 0;
 
-    goals.forEach(goal => {
-      goal.tasks.forEach(task => {
-        if(task.done) {
+    goals.forEach((goal) => {
+      goal.tasks.forEach((task) => {
+        if (task.done) {
           sumOfPointsAccomplished += task.effort;
         }
 
-        sumOfpointsTotal += task.effort
-      })
+        sumOfpointsTotal += task.effort;
+      });
     });
 
     return {
       sumOfPointsAccomplished: sumOfPointsAccomplished,
-      sumOfpointsTotal: sumOfpointsTotal
+      sumOfpointsTotal: sumOfpointsTotal,
     };
   }
 
@@ -37,29 +34,27 @@ export class ChartService {
 
     let currentMonth = DateTime.now().month;
 
-    for (let index = 0; index < currentMonth; index ++) {
+    for (let index = 0; index <= currentMonth; index++) {
       monthlyPlan[index] = 0;
       monthlyAccomplished[index] = 0;
     }
 
-    goals.forEach(goal => {
-      goal.tasks.forEach(task => {
+    goals.forEach((goal) => {
+      goal.tasks.forEach((task) => {
         let month = DateTime.fromISO(task.duedate).month;
         if (month !== NaN && month <= currentMonth) {
-          monthlyPlan[month] += task.effort;
+          monthlyPlan[month - 1] += task.effort;
 
-          if(task.done) {
-            monthlyAccomplished[month] += task.effort;
+          if (task.done) {
+            monthlyAccomplished[month - 1] += task.effort;
           }
-       }
-
-      })
+        }
+      });
     });
 
     return {
       monthlyAccomplished: monthlyAccomplished,
-      monthlyPlan: monthlyPlan
+      monthlyPlan: monthlyPlan,
     };
-    
   }
 }

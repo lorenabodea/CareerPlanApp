@@ -73,7 +73,7 @@
             <div class="goals-section">
               <div class="title">This week</div>
               <div *ngFor="let goal of goalsWeek$ | async">
-                <section class="goal" *ngIf="!goal.done">
+                <section class="goal">
                   <div class="goal-header">
                     <mat-checkbox (change)="markGoalAsDone(goal)" [checked]="goal.done">
                       {{goal.title}}
@@ -100,7 +100,28 @@
             <div class="goals-section">
               <div class="title">This month</div>
               <div *ngFor="let goal of goalsMonth$ | async">
-                <section class="goal" *ngIf="goal.done">
+                <section class="goal" *ngIf="!goal.done">
+                  <div class="goal-header">
+                    <mat-checkbox (change)="markGoalAsDone(goal)" [checked]="goal.done">
+                      {{goal.title}}
+                    </mat-checkbox>
+                    <mat-icon aria-hidden="false" aria-label="Comment" (click)="addComment(goal, $event)">
+                      chat_bubble_outlined</mat-icon>
+                  </div>
+                  <div class="tasks-list">
+                    <div>
+                      <div *ngFor="let task of goal.tasks">
+                        <mat-checkbox [checked]="task.done" (change)="markTaskAsDone(goal, task)">
+                          {{task.description}}
+                        </mat-checkbox>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="title">Next</div>
+              <div *ngFor="let goal of goalsNext$ | async">
+                <section class="goal">
                   <div class="goal-header">
                     <mat-checkbox (change)="markGoalAsDone(goal)" [checked]="goal.done">
                       {{goal.title}}

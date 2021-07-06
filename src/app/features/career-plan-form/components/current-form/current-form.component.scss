@@ -35,3 +35,10 @@ mat-expansion-panel {
     background-color: transparent;
     box-shadow: none;
 }
+
+.add-button {
+    margin-left: 8px;
+    mat-icon {
+        color: white;
+    }
+}
