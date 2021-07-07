@@ -206,6 +206,8 @@ export class DashboardComponent {
       )
     );
 
+    this.goalsMonth$.subscribe((sub) => console.log(sub));
+
     this.goalsNext$ = this.goals$.pipe(
       map((goals) =>
         goals.filter((goal) =>
